@@ -1,4 +1,3 @@
-// DOM elements.
 const roomSelectionContainer = document.getElementById('room-selection-container')
 const roomInput = document.getElementById('room-input')
 const connectButton = document.getElementById('connect-button')
@@ -7,8 +6,10 @@ const videoChatContainer = document.getElementById('video-chat-container')
 const localVideoComponent = document.getElementById('local-video')
 const remoteVideoComponent = document.getElementById('remote-video')
 
-// Variables.
-const socket = io()
+const socket = io(window.location.origin, {
+  withCredentials: true,
+  transports: ['websocket', 'polling']
+})
 const mediaConstraints = {
   audio: true,
   video: { width: 1280, height: 720 },
@@ -16,10 +17,9 @@ const mediaConstraints = {
 let localStream
 let remoteStream
 let isRoomCreator
-let rtcPeerConnection // Connection between the local device and the remote peer.
+let rtcPeerConnection 
 let roomId
 
-// Free public STUN servers provided by Google.
 const iceServers = {
   iceServers: [
     { urls: 'stun:stun.l.google.com:19302' },
@@ -30,12 +30,10 @@ const iceServers = {
   ],
 }
 
-// BUTTON LISTENER ============================================================
 connectButton.addEventListener('click', () => {
   joinRoom(roomInput.value)
 })
 
-// SOCKET EVENT CALLBACKS =====================================================
 socket.on('room_created', async () => {
   console.log('Socket event callback: room_created')
 
@@ -90,7 +88,6 @@ socket.on('webrtc_answer', (event) => {
 socket.on('webrtc_ice_candidate', (event) => {
   console.log('Socket event callback: webrtc_ice_candidate')
 
-  // ICE candidate configuration.
   const candidate = new RTCIceCandidate({
     sdpMLineIndex: event.label,
     candidate: event.candidate,
@@ -98,7 +95,6 @@ socket.on('webrtc_ice_candidate', (event) => {
   rtcPeerConnection.addIceCandidate(candidate)
 })
 
-// FUNCTIONS ==================================================================
 function joinRoom(room) {
   if (room === '') {
     alert('Please type a room ID')

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  webrtc-app:
+    build: .
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    networks:
+      - webrtc-network
+    expose:
+      - 3000
+
+  nginx:
+    image: nginx:alpine
+    container_name: webrtc-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - webrtc-app
+    networks:
+      - webrtc-network
+
+networks:
+  webrtc-network:
+    driver: bridge
