@@ -9,7 +9,11 @@ const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
     origin: process.env.NODE_ENV === 'production' 
-      ? [process.env.RENDER_EXTERNAL_URL, 'https://webrtc-node-app.onrender.com']
+      ? [
+          process.env.RENDER_EXTERNAL_URL, 
+          'https://webrtc-node-app.onrender.com',
+          'https://webrtc.hitanshu.tech'
+        ]
       : 'http://localhost:3000',
     methods: ['GET', 'POST'],
     credentials: true
