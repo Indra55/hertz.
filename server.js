@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const http = require('http')
 const { Server } = require('socket.io')
@@ -24,7 +25,13 @@ app.get('/health', (req, res) => {
   });
 });
 
-app.use('/', express.static('public'))
+// Serve static files from public directory
+app.use(express.static('public'))
+
+// For any other route that's not handled by static files, serve index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 io.on('connection', (socket) => {
   console.log(`Client connected: ${socket.id}`)
