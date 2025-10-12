@@ -6,9 +6,11 @@ const videoChatContainer = document.getElementById('video-chat-container')
 const localVideoComponent = document.getElementById('local-video')
 const remoteVideoComponent = document.getElementById('remote-video')
 
-const socket = io(window.location.origin, {
+// Use the current host for WebSocket connection
+const socket = io({
   withCredentials: true,
-  transports: ['websocket', 'polling']
+  transports: ['websocket', 'polling'],
+  path: '/socket.io/'
 })
 const mediaConstraints = {
   audio: true,
