@@ -25,10 +25,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Serve static files from public directory
 app.use(express.static('public'))
 
-// For any other route that's not handled by static files, serve index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
