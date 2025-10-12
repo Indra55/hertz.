@@ -9,16 +9,11 @@ const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
     origin: process.env.NODE_ENV === 'production' 
-      ? [
-          'https://' + process.env.VERCEL_URL,
-          'https://' + process.env.VERCEL_PROJECT_PRODUCTION_URL,
-          process.env.CLIENT_URL || 'http://localhost:3000'
-        ].filter(Boolean)
+      ? [process.env.RENDER_EXTERNAL_URL, 'https://webrtc-node-app.onrender.com']
       : 'http://localhost:3000',
     methods: ['GET', 'POST'],
     credentials: true
   },
-  path: '/socket.io/',
   transports: ['websocket', 'polling']
 })
 
@@ -94,15 +89,10 @@ io.on('connection', (socket) => {
   })
 })
 
-// Handle serverless environment (Vercel)
-if (process.env.VERCEL) {
-  module.exports = server;
-} else {
-  // For local development
-  const port = process.env.PORT || 3000;
-  server.listen(port, '0.0.0.0', () => {
-    console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode`);
-    console.log(`Express server listening on port ${port}`);
-    console.log(`Client URL: ${process.env.CLIENT_URL || 'http://localhost:3000'}`);
-  });
-} 
+const port = process.env.PORT || 3000
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode`)
+  console.log(`Express server listening on port ${port}`)
+  console.log(`Client URL: ${process.env.CLIENT_URL || 'http://localhost:3000'}`)
+})
+module.exports = app; 
