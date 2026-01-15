@@ -1190,25 +1190,34 @@
 
     const iceServers = {
       iceServers: [
+        // STUN servers
+        { urls: 'stun:stun.relay.metered.ca:80' },
         { urls: 'stun:stun.l.google.com:19302' },
-        { urls: 'stun:stun1.l.google.com:19302' },
+        
+        // Your Metered TURN servers
         {
-          urls: 'turn:openrelay.metered.ca:80',
-          username: 'openrelayproject',
-          credential: 'openrelayproject',
+          urls: 'turn:global.relay.metered.ca:80',
+          username: 'c53b29bc54f5f9e72be70b83',
+          credential: '74w9qbNtq7eqjWzU',
         },
         {
-          urls: 'turn:openrelay.metered.ca:443',
-          username: 'openrelayproject',
-          credential: 'openrelayproject',
+          urls: 'turn:global.relay.metered.ca:80?transport=tcp',
+          username: 'c53b29bc54f5f9e72be70b83',
+          credential: '74w9qbNtq7eqjWzU',
         },
         {
-          urls: 'turn:openrelay.metered.ca:443?transport=tcp',
-          username: 'openrelayproject',
-          credential: 'openrelayproject',
+          urls: 'turn:global.relay.metered.ca:443',
+          username: 'c53b29bc54f5f9e72be70b83',
+          credential: '74w9qbNtq7eqjWzU',
+        },
+        {
+          urls: 'turns:global.relay.metered.ca:443?transport=tcp',
+          username: 'c53b29bc54f5f9e72be70b83',
+          credential: '74w9qbNtq7eqjWzU',
         },
       ],
       iceCandidatePoolSize: 10,
+      iceTransportPolicy: 'all',
     }
 
     const micOnIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
