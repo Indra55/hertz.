@@ -1177,22 +1177,28 @@
 
     const iceServers = {
       iceServers: [
-        { urls: 'stun:stun.l.google.com:19302' },
-        { urls: 'stun:stun1.l.google.com:19302' },
         {
-          urls: 'turn:openrelay.metered.ca:80',
-          username: 'openrelayproject',
-          credential: 'openrelayproject',
+          urls: "stun:stun.relay.metered.ca:80",
         },
         {
-          urls: 'turn:openrelay.metered.ca:443',
-          username: 'openrelayproject',
-          credential: 'openrelayproject',
+          urls: "turn:global.relay.metered.ca:80",
+          username: "5e2d50cf76b67247afc1d279",
+          credential: "GrDO7IYP8bzuIeU9",
         },
         {
-          urls: 'turn:openrelay.metered.ca:443?transport=tcp',
-          username: 'openrelayproject',
-          credential: 'openrelayproject',
+          urls: "turn:global.relay.metered.ca:80?transport=tcp",
+          username: "5e2d50cf76b67247afc1d279",
+          credential: "GrDO7IYP8bzuIeU9",
+        },
+        {
+          urls: "turn:global.relay.metered.ca:443",
+          username: "5e2d50cf76b67247afc1d279",
+          credential: "GrDO7IYP8bzuIeU9",
+        },
+        {
+          urls: "turns:global.relay.metered.ca:443?transport=tcp",
+          username: "5e2d50cf76b67247afc1d279",
+          credential: "GrDO7IYP8bzuIeU9",
         },
       ],
       iceCandidatePoolSize: 10,
